@@ -18,13 +18,10 @@ import (
 )
 
 const (
-    host     = "192.168.0.168"
-    port     = 5432
-    user     = "ivan"
-    password = "password"
-    dbname   = "evoting"
     MSG_SIZE     = 2048
 )
+
+var conf map[string]string
 
 type RequestHandler struct {
     sqlBase *sql.DB
@@ -119,10 +116,11 @@ func (h *RequestHandler)handlerApiRegister(w http.ResponseWriter, r *http.Reques
  }
 
 func main() {
+    conf = loadData()
     var mainHandler RequestHandler
-    psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
+    psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
             "password=%s dbname=%s sslmode=disable",
-    host, port, user, password, dbname)
+    conf["ip_sql"], conf["port_sql"], conf["user_sql"], conf["password_sql"], conf["dbname_sql"])
 
     var err error
     mainHandler.sqlBase, err = sql.Open("postgres", psqlInfo)
@@ -131,9 +129,9 @@ func main() {
     }
     mainHandler.delegate.SqlBaseTo = mainHandler.sqlBase
     defer mainHandler.sqlBase.Close()
-    mainHandler.Run("192.168.0.165:8888")
+    mainHandler.Run(conf["address_blockchain"])
     http.HandleFunc("/", mainHandler.handler)
     http.HandleFunc("/api/vote/", mainHandler.handlerApiVote)
     http.HandleFunc("/api/register/", mainHandler.handlerApiRegister)
-    log.Fatal(http.ListenAndServe(":8080", nil))
+    log.Fatal(http.ListenAndServe(conf["address_listen"], nil))
 }
