@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>Vote - eVoting</title>
+
+    <link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css">
+    <link href="css/custom.css" rel="stylesheet">
+</head>
+<body class="text-center">
+<form class="custom-form" action="api/" method="POST">
+    <h1 class="h3 mb-3 font-weight-normal">Vote!</h1>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <label for="inputPublicKey" class="sr-only">Password</label>
+    <input name="publicKey" type="text" id="inputPublicKey" class="form-control" placeholder="Private key" required>
+    <select name="voteId" class="form-control" style="margin-bottom: 10px;">
+        <option value="1">Vladimir Putin</option>
+        <option value="2">Dmitry Medvedev</option>
+        <option value="3">Vladimir Putin</option>
+    </select>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
+</form>
+</body>
+</html>
+
